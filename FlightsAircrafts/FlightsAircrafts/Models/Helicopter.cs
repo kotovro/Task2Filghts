@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 namespace FlightsAircrafts.Models
 {
-    class Helicopter : AbstratcAircraft
+    class Helicopter : AbstractAircraft
     {
-        public override double CurrentHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Helicopter(string name, double detoriationLevel, double ceil, double verticalSpeed, double fuelLevel)
+            : base(name, detoriationLevel, ceil, verticalSpeed)
+        {
+            FuelLevel = fuelLevel; 
+        }
 
-        public override bool Land()
+        public double FuelLevel { get; private set; }
+
+
+        public override bool Land(Airport airport)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Takeoff()
+        public override bool Takeoff(Airport airport)
         {
             throw new NotImplementedException();
         }

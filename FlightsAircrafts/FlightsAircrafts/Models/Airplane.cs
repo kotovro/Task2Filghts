@@ -6,73 +6,50 @@ using System.Threading.Tasks;
 
 namespace FlightsAircrafts.Models
 {
-    class Airplane : AbstratcAircraft
+    class Airplane : AbstractAircraft
     {
-        public Airplane(double fuelLevel, double detoriationLevel, double runwayLength)
+        public Airplane(string name, double detoriationLevel, double ceil, double verticalSpeed, double runwayLength, double landingLength, double fuelLevel) 
+            : base(name, detoriationLevel, ceil, verticalSpeed)
         {
             RunwayLength = runwayLength;
+            LandingLength = landingLength;
             FuelLevel = fuelLevel;
-            CurrentDetoriationLevel = detoriationLevel; 
         }
 
-        protected override double CurrentDetoriationLevel { get; set; }
         protected double FuelLevel { get; set; }
         private double RunwayLength  { get; set; }
-        public override double CurrentHeight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private double LandingLength { get; set; }
 
-        public override bool Land()
+        public override bool Land(Airport airport)
         {
-            throw new NotImplementedException();
+            if (LandingLength < airport.RunwayLength)
+            {
+                Error = AircraftConsts.ErrorCause.NotEnoughLandingLen;
+                return false;
+            }
+            FlightDirection = AircraftConsts.Direction.None;
+            return true;
         }
 
-        public override bool Takeoff()
+        //public override bool Takeoff(Airplane airplane)
+        public override bool Takeoff(Airport airport)
         {
-            Random random = new Random();
-            double probability = random.NextDouble();
-            ///add DetoriationLevelEnum
-            if (FuelLevel > 0)
+            var random = new Random();
+            var probability = random.Next(101);
+            if (probability <= CurrentDetoriationLevel)
             {
-                if (CurrentDetoriationLevel <= DetoriationLevel.LOW)
-                {
-                    return true;
-                }
-                if (CurrentDetoriationLevel > DetoriationLevel.LOW && CurrentDetoriationLevel <= DetoriationLevel.MEDIUM)
-                {
-                    if (probability > 0.4)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-
-                if (CurrentDetoriationLevel > DetoriationLevel.MEDIUM && CurrentDetoriationLevel <= DetoriationLevel.HIGH)
-                {
-                    if (probability > 0.8)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-
-                if (CurrentDetoriationLevel > DetoriationLevel.HIGH)
-                {
-                    if (probability > 0.95)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                Error = AircraftConsts.ErrorCause.Detoriation; ///got broken
+                return false;
             }
-            return false;
+
+            if (RunwayLength > airport.RunwayLength)
+            {
+                Error = AircraftConsts.ErrorCause.NotEnoughTakeoffLen;
+                return false;
+            }
+
+            FlightDirection = AircraftConsts.Direction.TakesOff;
+            return true;
         }
     }
 }

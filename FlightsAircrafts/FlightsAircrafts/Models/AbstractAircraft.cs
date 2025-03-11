@@ -6,23 +6,62 @@ using System.Threading.Tasks;
 
 namespace FlightsAircrafts.Models
 {
-    abstract class AbstratcAircraft
+    abstract class AbstractAircraft
     {
-        public static class DetoriationLevel
+    
+        public AbstractAircraft(string name, double detoriationLevel, double ceil, double verticalSpeed)
         {
-            public const double HIGH = 100.0;
-            public const double MEDIUM = 65.0;
-            public const double LOW = 30.0;
+            Name = name;
+            CurrentDetoriationLevel = detoriationLevel;
+            Ceil = ceil;
+            VerticalSpeed = verticalSpeed;
         }
 
-        public abstract double CurrentHeight { get; set; }
-        protected abstract double CurrentDetoriationLevel { get; set; }
-        public abstract bool Takeoff();
-        public abstract bool Land();
+        public event EventHandler<double>? HeightChanged;
+        public double CurrentHeight { get; protected set; } = 0;
+        public AircraftConsts.ErrorCause Error { get; protected set; } = AircraftConsts.ErrorCause.None;
+        public string Name { get; private set; }
+        protected double CurrentDetoriationLevel { get; private set; }
+        protected double Ceil { get; private set; }
+        protected double VerticalSpeed { get; private set; }
+        public AircraftConsts.Direction FlightDirection { get; protected set; } = AircraftConsts.Direction.None;
+        public abstract bool Takeoff(Airport airport);
+        public abstract bool Land(Airport airport);
+        public async void Flight()
+        {
+            if (FlightDirection == AircraftConsts.Direction.TakesOff)
+            {
+                while (CurrentHeight < Ceil - VerticalSpeed)
+                {
+                    CurrentHeight += VerticalSpeed;
+                    HeightChanged?.Invoke(this, CurrentHeight);
+                    await Task.Delay(250);
+                }
+                CurrentHeight = Ceil;
+                HeightChanged?.Invoke(this, CurrentHeight);
+
+                FlightDirection = AircraftConsts.Direction.Landing;
+
+                await Task.Delay(250);
+            }
+
+            if (FlightDirection == AircraftConsts.Direction.Landing)
+            {
+                while (CurrentHeight > 0 + VerticalSpeed)
+                {
+                    CurrentHeight -= VerticalSpeed;
+                    HeightChanged?.Invoke(this, CurrentHeight);
+                    await Task.Delay(250);
+                }
+                CurrentHeight = 0;
+                HeightChanged?.Invoke(this, CurrentHeight);
+                FlightDirection = AircraftConsts.Direction.None;
+            }
+        }
 
         public override string ToString()
         {
-            return $"Current height is:  {CurrentHeight} \n Cueerent detoriation level: {CurrentDetoriationLevel}" ;
+            return $"Current height is:  {CurrentHeight} \n Cuerrent detoriation level: {CurrentDetoriationLevel}" ;
         }
     }
 }
