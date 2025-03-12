@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightsAircrafts.Models
 {
-    abstract class AbstractAircraft
+    public abstract class AbstractAircraft
     {
     
         public AbstractAircraft(string name, double detoriationLevel, double ceil, double verticalSpeed)
@@ -21,7 +21,7 @@ namespace FlightsAircrafts.Models
         public double CurrentHeight { get; protected set; } = 0;
         public AircraftConsts.ErrorCause Error { get; protected set; } = AircraftConsts.ErrorCause.None;
         public string Name { get; private set; }
-        protected double CurrentDetoriationLevel { get; private set; }
+        public double CurrentDetoriationLevel { get; set; }
         protected double Ceil { get; private set; }
         protected double VerticalSpeed { get; private set; }
         public AircraftConsts.Direction FlightDirection { get; protected set; } = AircraftConsts.Direction.None;
@@ -54,8 +54,8 @@ namespace FlightsAircrafts.Models
                     await Task.Delay(250);
                 }
                 CurrentHeight = 0;
-                HeightChanged?.Invoke(this, CurrentHeight);
                 FlightDirection = AircraftConsts.Direction.None;
+                HeightChanged?.Invoke(this, CurrentHeight);
             }
         }
 

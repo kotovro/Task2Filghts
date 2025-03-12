@@ -22,7 +22,7 @@ namespace FlightsAircrafts.Models
 
         public override bool Land(Airport airport)
         {
-            if (LandingLength < airport.RunwayLength)
+            if (LandingLength > airport.RunwayLength)
             {
                 Error = AircraftConsts.ErrorCause.NotEnoughLandingLen;
                 return false;

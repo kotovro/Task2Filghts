@@ -19,12 +19,22 @@ namespace FlightsAircrafts.Models
 
         public override bool Land(Airport airport)
         {
-            throw new NotImplementedException();
+            FlightDirection = AircraftConsts.Direction.None;
+            return true;
         }
 
         public override bool Takeoff(Airport airport)
         {
-            throw new NotImplementedException();
+            var random = new Random();
+            var probability = random.Next(101);
+            if (probability <= CurrentDetoriationLevel)
+            {
+                Error = AircraftConsts.ErrorCause.Detoriation; ///got broken
+                return false;
+            }
+
+            FlightDirection = AircraftConsts.Direction.TakesOff;
+            return true;
         }
     }
 }
