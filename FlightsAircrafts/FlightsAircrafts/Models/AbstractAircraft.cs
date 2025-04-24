@@ -18,6 +18,7 @@ namespace FlightsAircrafts.Models
         }
 
         public event EventHandler<double>? HeightChanged;
+        
         public double CurrentHeight { get; protected set; } = 0;
         public AircraftConsts.ErrorCause Error { get; protected set; } = AircraftConsts.ErrorCause.None;
         public string Name { get; private set; }
