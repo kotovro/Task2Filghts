@@ -212,6 +212,7 @@ namespace FlightsAircrafts.ViewModels
                     AircraftConsts.ErrorCause.NotEnoughLandingLen => "Too short landing. Crash",
                     AircraftConsts.ErrorCause.NotEnoughTakeoffLen => "Too short runway.",
                     AircraftConsts.ErrorCause.Detoriation => "Too wearied off",
+                    AircraftConsts.ErrorCause.LowFuel => "Low on fuel",
                     _ => "Ready",
 
                 };
@@ -227,6 +228,7 @@ namespace FlightsAircrafts.ViewModels
                     AircraftConsts.ErrorCause.NotEnoughLandingLen => "Too short landing. Crash",
                     AircraftConsts.ErrorCause.NotEnoughTakeoffLen => "Too short runway.",
                     AircraftConsts.ErrorCause.Detoriation => "Too wearied off",
+                    AircraftConsts.ErrorCause.LowFuel => "Low on fuel",
                     _ => "Ready",
 
                 };
@@ -242,6 +244,7 @@ namespace FlightsAircrafts.ViewModels
                     AircraftConsts.ErrorCause.NotEnoughLandingLen => "Too short landing. Crash",
                     AircraftConsts.ErrorCause.NotEnoughTakeoffLen => "Too short runway.",
                     AircraftConsts.ErrorCause.Detoriation => "Too wearied off",
+                    AircraftConsts.ErrorCause.LowFuel => "Low on fuel",
                     _ => "Ready",
 
                 };
@@ -257,6 +260,7 @@ namespace FlightsAircrafts.ViewModels
                     AircraftConsts.ErrorCause.NotEnoughLandingLen => "Too short landing. Crash",
                     AircraftConsts.ErrorCause.NotEnoughTakeoffLen => "Too short runway.",
                     AircraftConsts.ErrorCause.Detoriation => "Too wearied off",
+                    AircraftConsts.ErrorCause.LowFuel => "Low on fuel",
                     _ => "Ready",
 
                 };
@@ -272,6 +276,7 @@ namespace FlightsAircrafts.ViewModels
                     AircraftConsts.ErrorCause.NotEnoughLandingLen => "Too short landing. Crash",
                     AircraftConsts.ErrorCause.NotEnoughTakeoffLen => "Too short runway.",
                     AircraftConsts.ErrorCause.Detoriation => "Too wearied off",
+                    AircraftConsts.ErrorCause.LowFuel => "Low on fuel",
                     _ => "Ready",
 
                 };

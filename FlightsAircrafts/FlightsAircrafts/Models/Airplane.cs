@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightsAircrafts.Models
 {
-    class Airplane : AbstractAircraft
+    public class Airplane : AbstractAircraft
     {
         public Airplane(string name, double detoriationLevel, double ceil, double verticalSpeed, double runwayLength, double landingLength, double fuelLevel) 
             : base(name, detoriationLevel, ceil, verticalSpeed)
@@ -48,6 +48,11 @@ namespace FlightsAircrafts.Models
                 return false;
             }
 
+            if (FuelLevel == 0)
+            {
+                Error = AircraftConsts.ErrorCause.LowFuel;
+                return false;
+            }
             FlightDirection = AircraftConsts.Direction.TakesOff;
             return true;
         }
